@@ -1,19 +1,25 @@
 package gui;
 
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
 import java.awt.Color;
-import javax.swing.JLabel;
+import java.awt.EventQueue;
 import java.awt.Font;
-import javax.swing.JTextField;
 import java.awt.SystemColor;
-import javax.swing.JComboBox;
-import javax.swing.JButton;
-import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.border.EmptyBorder;
+
+import classes.Aluno;
+import classes.Aulas;
+import classes.Curso;
+import classes.Professor;
+import classes.Sala;
 
 public class TelaAulas extends JFrame {
 
@@ -38,6 +44,14 @@ public class TelaAulas extends JFrame {
 	private JTextField txtInicio;
 	private JTextField txtTermino;
 	private JTextField txtSala;
+	
+	//Declaração dos itens para criar uma aula.
+	
+	private Curso curso;
+	private Aluno aluno;
+	private Sala sala;
+	private Professor professor;
+	private Aulas aulas;
 
 	/**
 	 * Launch the application.
@@ -59,6 +73,15 @@ public class TelaAulas extends JFrame {
 	 * Create the frame.
 	 */
 	public TelaAulas() {
+		
+		//Vamos instanciar as nossas classes para gerar objetos dos itens relacionados à aula.
+		//Esses objetos estão vazios e serão preenchidos quando o usuário clicar nos botões de incluir
+		curso = new Curso();
+		aluno = new Aluno();
+		sala = new Sala();
+		professor = new Professor();
+		aulas = new Aulas();
+		
 		setResizable(false);
 		setTitle("Cadastro de Aulas");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -375,6 +398,26 @@ public class TelaAulas extends JFrame {
 		contentPane.add(btnIncluirAluno);
 		
 		JButton btnCriarAula = new JButton("Criar a Aula");
+		btnCriarAula.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				//Obter o texto que está na caixa de título do curso e adicionar à caixa curso que está na área do Criar Aula.
+				txtCurso.setText(txtTituloCurso.getText());
+				
+				//Vamos adicionar os elementos do curso ao objeto curso, tais como: título, carga horária, datainicio, ...
+				curso.setTitulo(txtTituloCurso.getText());
+				curso.setArea(txtArea.getSelectedText());
+				curso.setCargaHoraria(txtCargaHoraria.getText());
+				curso.setPreco(Double.parseDouble(txtPreco.getText()));
+				
+				
+				//Vamos destivar o painel de cursos. Vamos usar o comando enabled(habilitado) com o valor false
+				txtTituloCurso.setEnabled(false);
+				txtArea.setEnabled(false);
+				txtCargaHoraria.setEnabled(false);
+				txtPreco.setEnabled(false);
+			}
+		});
 		btnCriarAula.setBounds(625, 510, 141, 23);
 		contentPane.add(btnCriarAula);
 	}
