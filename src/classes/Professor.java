@@ -31,4 +31,6 @@ public class Professor {
 		String msg = "O professor "+nome+" foi cadastrado.";
 		return msg;
 	
+	}
 }
+

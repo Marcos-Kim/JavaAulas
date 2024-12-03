@@ -42,3 +42,4 @@ public class Aluno {
 		String msg = "O aluno "+nome+" foi cadastrado.";
 		return msg;
 }
+}

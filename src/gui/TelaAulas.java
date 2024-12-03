@@ -6,6 +6,9 @@ import java.awt.Font;
 import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -20,6 +23,8 @@ import classes.Aulas;
 import classes.Curso;
 import classes.Professor;
 import classes.Sala;
+import javax.swing.ImageIcon;
+import java.awt.Toolkit;
 
 public class TelaAulas extends JFrame {
 
@@ -52,6 +57,7 @@ public class TelaAulas extends JFrame {
 	private Sala sala;
 	private Professor professor;
 	private Aulas aulas;
+	private List<Aluno> listaAluno;
 
 	/**
 	 * Launch the application.
@@ -73,11 +79,12 @@ public class TelaAulas extends JFrame {
 	 * Create the frame.
 	 */
 	public TelaAulas() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\marcos.skim\\Downloads\\Benno-Meyer-Benno-System-Director-2.32.png"));
 		
 		//Vamos instanciar as nossas classes para gerar objetos dos itens relacionados à aula.
 		//Esses objetos estão vazios e serão preenchidos quando o usuário clicar nos botões de incluir
 		curso = new Curso();
-		aluno = new Aluno();
+		listaAluno = new ArrayList<Aluno>();
 		sala = new Sala();
 		professor = new Professor();
 		aulas = new Aulas();
@@ -280,7 +287,7 @@ public class TelaAulas extends JFrame {
 		
 		JLabel lblNewLabel_1 = new JLabel("Id da Aula:");
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 12));
-		lblNewLabel_1.setBounds(10, 11, 169, 14);
+		lblNewLabel_1.setBounds(10, 11, 87, 14);
 		panel_aulas.add(lblNewLabel_1);
 		
 		txtIdAula = new JTextField();
@@ -290,7 +297,7 @@ public class TelaAulas extends JFrame {
 		
 		JLabel lblNewLabel_2 = new JLabel("Curso:");
 		lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD, 12));
-		lblNewLabel_2.setBounds(238, 12, 87, 14);
+		lblNewLabel_2.setBounds(238, 12, 54, 14);
 		panel_aulas.add(lblNewLabel_2);
 		
 		txtCurso = new JTextField();
@@ -310,7 +317,7 @@ public class TelaAulas extends JFrame {
 		
 		JLabel lblNewLabel_1_1 = new JLabel("Início:");
 		lblNewLabel_1_1.setFont(new Font("Tahoma", Font.BOLD, 12));
-		lblNewLabel_1_1.setBounds(10, 48, 169, 14);
+		lblNewLabel_1_1.setBounds(10, 48, 80, 14);
 		panel_aulas.add(lblNewLabel_1_1);
 		
 		txtInicio = new JTextField();
@@ -320,7 +327,7 @@ public class TelaAulas extends JFrame {
 		
 		JLabel lblNewLabel_1_1_1 = new JLabel("Término:");
 		lblNewLabel_1_1_1.setFont(new Font("Tahoma", Font.BOLD, 12));
-		lblNewLabel_1_1_1.setBounds(238, 48, 169, 14);
+		lblNewLabel_1_1_1.setBounds(238, 48, 66, 14);
 		panel_aulas.add(lblNewLabel_1_1_1);
 		
 		txtTermino = new JTextField();
@@ -330,7 +337,7 @@ public class TelaAulas extends JFrame {
 		
 		JLabel lblNewLabel_1_1_1_1 = new JLabel("Alunos:");
 		lblNewLabel_1_1_1_1.setFont(new Font("Tahoma", Font.BOLD, 12));
-		lblNewLabel_1_1_1_1.setBounds(440, 49, 169, 14);
+		lblNewLabel_1_1_1_1.setBounds(440, 49, 87, 14);
 		panel_aulas.add(lblNewLabel_1_1_1_1);
 		
 		JComboBox cboAluno = new JComboBox();
@@ -348,6 +355,7 @@ public class TelaAulas extends JFrame {
 		panel_aulas.add(txtSala);
 		
 		JButton btnIncluirCurso = new JButton("Incluir curso");
+		btnIncluirCurso.setIcon(new ImageIcon("C:\\Users\\marcos.skim\\Downloads\\Benno-Meyer-Benno-System-Programming-2.16.png"));
 		btnIncluirCurso.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//Obter o texto que está na caixa "Título do Curso" e adicionar à caixa "Curso" que está na área do "Criar Aula".
@@ -364,9 +372,16 @@ public class TelaAulas extends JFrame {
 		contentPane.add(btnIncluirCurso);
 		
 		JButton btnIncluirSala = new JButton("Incluir sala");
+		btnIncluirSala.setIcon(new ImageIcon("C:\\Users\\marcos.skim\\Downloads\\Benno-Meyer-Benno-System-Programming-2.16.png"));
 		btnIncluirSala.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
+				//preencher os dados do objeto sala
+				sala.setIdentificacao(txtIdentificacao.getText());
+				sala.setDescricao(txtDescricao.getText());
+				
 				txtSala.setText(txtIdentificacao.getText());
+				
 				btnIncluirSala.setEnabled(false);
 				txtIdentificacao.setEnabled(false);
 				txtDescricao.setEnabled(false);
@@ -376,6 +391,7 @@ public class TelaAulas extends JFrame {
 		contentPane.add(btnIncluirSala);
 		
 		JButton btnIncluirProfessor = new JButton("Incluir professor");
+		btnIncluirProfessor.setIcon(new ImageIcon("C:\\Users\\marcos.skim\\Downloads\\Benno-Meyer-Benno-System-Programming-2.16.png"));
 		btnIncluirProfessor.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				txtProfessor.setText(txtNomeProfessor.getText());
@@ -389,33 +405,55 @@ public class TelaAulas extends JFrame {
 		contentPane.add(btnIncluirProfessor);
 		
 		JButton btnIncluirAluno = new JButton("Incluir aluno");
+		btnIncluirAluno.setIcon(new ImageIcon("C:\\Users\\marcos.skim\\Downloads\\Benno-Meyer-Benno-System-Programming-2.16.png"));
 		btnIncluirAluno.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
+				aluno = new Aluno();
+				
+				aluno.setNome(txtNomeAluno.getText());
+				aluno.setEmail(txtEmailAluno.getText());
+				aluno.setCpf(txtCPFAluno.getText());
+				aluno.setIdade(Integer.parseInt(txtIdadeAluno.getText()));
+				listaAluno.add(aluno);
+				
 				cboAluno.addItem(txtNomeAluno.getText());
+				
+				btnIncluirAluno.setEnabled(false);
+				txtNomeAluno.setEnabled(false);
+				txtEmailAluno.setEnabled(false);
+				txtCPFAluno.setEnabled(false);
+				txtIdadeAluno.setEnabled(false);
+				
 							}
 		});
 		btnIncluirAluno.setBounds(463, 510, 141, 23);
 		contentPane.add(btnIncluirAluno);
 		
 		JButton btnCriarAula = new JButton("Criar a Aula");
+		btnCriarAula.setIcon(new ImageIcon("C:\\Users\\marcos.skim\\Downloads\\Benno-Meyer-Benno-System-Window.32.png"));
 		btnCriarAula.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				//Obter o texto que está na caixa de título do curso e adicionar à caixa curso que está na área do Criar Aula.
-				txtCurso.setText(txtTituloCurso.getText());
+				aulas.setId(Integer.parseInt(txtIdAula.getText()));
+				aulas.setCurso(curso);
+				aulas.setProfessor(professor);
 				
-				//Vamos adicionar os elementos do curso ao objeto curso, tais como: título, carga horária, datainicio, ...
-				curso.setTitulo(txtTituloCurso.getText());
-				curso.setArea(txtArea.getSelectedText());
-				curso.setCargaHoraria(txtCargaHoraria.getText());
-				curso.setPreco(Double.parseDouble(txtPreco.getText()));
+				aulas.setInicio(new Date(Long.parseLong(txtInicio.getText())));
+				aulas.setTermino(new Date(Long.parseLong(txtTermino.getText())));
 				
+				aulas.setAlunos(listaAluno.toArray(new Aluno[0]));
+				aulas.setSala(sala);
 				
-				//Vamos destivar o painel de cursos. Vamos usar o comando enabled(habilitado) com o valor false
-				txtTituloCurso.setEnabled(false);
-				txtArea.setEnabled(false);
-				txtCargaHoraria.setEnabled(false);
-				txtPreco.setEnabled(false);
+				txtIdAula.setEnabled(false);
+				txtCurso.setEnabled(false);
+				txtProfessor.setEnabled(false);
+				txtInicio.setEnabled(false);
+				txtTermino.setEnabled(false);
+				txtSala.setEnabled(false);
+				
+							
+				System.out.println(cboAluno.getItemAt(0));
 			}
 		});
 		btnCriarAula.setBounds(625, 510, 141, 23);
